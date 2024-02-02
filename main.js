@@ -1,4 +1,4 @@
-const products = [
+﻿const products = [
     { name: "Cereals", price: 8, category: "Vegetarian" },
     { name: "Tomatoes", price: 10, category: "Vegetarian" },
     { name: "Carrots", price: 12, category: "Vegetarian" },
@@ -49,21 +49,39 @@ function showPage(page) {
 function getCustomerPage() {
     return `
         <h2>Customer Page</h2>
-        <label>
-            Choose a Category:
-            <select id="dietaryPreferences">
-                <option value="none">None</option>
-                <option value="vegetarian">Vegetarian</option>
-                <option value="glutenFree">Gluten-Free</option>
-            </select>
-        </label>
-        <label>
-            Organic Preference:
-            <select id="organicPreference">
-                <option value="false">Non-Organic</option>
-                <option value="true">Organic</option>
-            </select>
-        </label>
+        <ul>
+            <li>
+                <label>
+                    Choose a Category:
+                    <select id="dietaryPreferences">
+                        <option value="none">None</option>
+                        <option value="vegetarian">Vegetarian</option>
+                        <option value="glutenFree">Gluten-Free</option>
+                    </select>
+                </label>
+            </li>
+            <li>
+                <label>
+                    Organic Preference:
+                    <select id="organicPreference">
+                        <option value="false">Non-Organic</option>
+                        <option value="true">Organic</option>
+                    </select>
+                </label>
+            </li>
+            <li>
+                <fieldset>
+                    <legend>Delivery Options:</legend>
+                    <label><input type="radio" name="delivery" value="standard"> Standard</label>
+                    <label><input type="radio" name="delivery" value="express"> Express</label>
+                </fieldset>
+            </li>
+            <li>
+                <label>
+                    <input type="checkbox" id="subscribe" value="subscribe"> Subscribe to Newsletter
+                </label>
+            </li>
+        </ul>
 
         <button onclick="updateUserPreferences()">Update Preferences</button>
     `;
@@ -78,10 +96,21 @@ function updateUserPreferences() {
 
     
 }
+const productImages = [
+    'cereals.jpg',
+    'tomatoes.jpg',
+    'carrots.jpg',
+    'broccoli.jpg',
+    'bread.jpg',
+    'beef.jpg',
+    'pork.jpg',
+    'chicken.jpg',
+    'sausage.jpg',
+    'bacon.jpg',
+];
 function getProductsPage() {
     const dietaryPreference = userPreferences.vegetarian ? 'vegetarian' : userPreferences.glutenAllergy ? 'glutenFree' : 'none';
 
-    
     const filteredProducts = products.filter(product => {
         if (dietaryPreference === 'vegetarian') {
             return product.category === 'Vegetarian';
@@ -92,28 +121,50 @@ function getProductsPage() {
         }
     });
 
-    
-    const sortedProducts = filteredProducts.slice().sort((a, b) => a.price - b.price);
 
-    
-    const productListHTML = sortedProducts.map(product => `
-        <div class="product">
-            <h3>${product.name}</h3>
-            <p>Price: $${product.price.toFixed(2)}</p>
-            <p>Category: ${product.category}</p>
-            <label for="quantity">Quantity:</label>
-            <input type="number" id="quantity${product.name}" value="1" min="1">
-            <button onclick="addToCart(${JSON.stringify(product).replace(/"/g, "&quot;")}, ${"quantity" + product.name}.value)">Add to Cart</button>
-        </div>
-    `).join('');
+    const groupedProducts = groupProductsByCategory(filteredProducts);
+
+    const categoryListHTML = Object.keys(groupedProducts).map(category => {
+        const categoryProducts = groupedProducts[category];
+        const productListHTML = categoryProducts.map((product, index) => `
+            <div class="product">
+                <img src="images/${productImages[category === 'Vegetarian' ? index : index + 5 ]}" alt="${product.name}" style="width: 100px; height: 100px; margin-right: 10px;">
+                <h3>${product.name}</h3>
+                <p>Price: $${product.price.toFixed(2)}</p>
+                <p>Category: ${product.category}</p>
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity${product.name}" value="1" min="1">
+                <button onclick="addToCart(${JSON.stringify(product).replace(/"/g, "&quot;")}, ${"quantity" + product.name}.value)">Add to Cart</button>
+            </div>
+        `).join('');
+
+        return `
+            <div class="category">
+                <h2>${category}</h2>
+                <div class="product-list">
+                    ${productListHTML}
+                </div>
+            </div>
+        `;
+    }).join('');
 
     return `
         <h2>Products Page</h2>
-        <div class="product-list">
-            ${productListHTML}
-        </div>
+        ${categoryListHTML}
     `;
 }
+
+function groupProductsByCategory(products) {
+    const groupedProducts = {};
+    products.forEach(product => {
+        if (!groupedProducts[product.category]) {
+            groupedProducts[product.category] = [];
+        }
+        groupedProducts[product.category].push(product);
+    });
+    return groupedProducts;
+}
+
 function addToCart(product, quantity) {
     
     const parsedQuantity = parseInt(quantity, 10);
