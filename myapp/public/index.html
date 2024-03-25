@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title data-key="title_course_registration">Course Registration</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+    <select id="languageSelect">
+        <option value="en" data-key="option_english">English</option>
+        <option value="fr" data-key="option_french">French</option>
+        
+      </select>
+    <div id="app"></div>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        class App extends React.Component {
+            render() {
+                return (
+                    <div>
+                        <header className="container-md p-3 my-3 border bg-dark text-white text-center">
+                            <h1 data-key="header_title">uOttawa Course Registration</h1>
+                            <p data-key="header_subtitle">Find, register, and manage your courses.</p>
+                        </header>
+                        <nav className="navbar navbar-dark bg-dark">
+                            <a className="nav-link text-white" href="cart.html" data-key="nav_my_cart">My Cart</a>
+                        </nav>
+                        <style>
+                            {`
+                                .card {
+                                    height: 100%;
+                                }
+                                .card-img-top {
+                                    height: 200px; 
+                                    object-fit: cover;
+                                }
+                                .card-body {
+                                    height: 250px; 
+                                    overflow: hidden;
+                                }
+                            `}
+                        </style>
+                        <div className="container p-3">
+                            <h2 data-key="section_courses">Courses</h2>
+                            <p data-key="courses_intro">Explore our offerings:</p>
+                            <div className="row">
+                                <div className="col-lg-4">
+                                    <div className="card mb-3">
+                                        <img src="images/course1.png" className="card-img-top" alt="Course 1 Image" />
+                                        <div className="card-body">
+                                            <h5 className="card-title" data-key="course1_title">Introduction to Programming</h5>
+                                            <p className="card-text" data-key="course1_desc">Learn the basics of programming with this introductory course.</p>
+                                            <p className="card-text"><strong data-key="instructor">Instructor:</strong> John Smith</p>
+                                            <p className="card-text"><strong data-key="credits">Credits:</strong> 3</p>
+                                            <button type="button" className="btn btn-primary btn-block add-to-cart" data-key="add_to_cart">Add to Cart</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-lg-4">
+                                    <div className="card mb-3">
+                                        <img src="images/course2.png" className="card-img-top" alt="Course 2 Image" />
+                                        <div className="card-body">
+                                            <h5 className="card-title" data-key="course1_title">Web Development Process</h5>
+                                            <p className="card-text" data-key="course1_desc">Become proficient in web development with this intensive bootcamp.</p>
+                                            <p className="card-text"><strong data-key="instructor">Instructor:</strong> Emily Johnson</p>
+                                            <p className="card-text"><strong data-key="credits">Credits:</strong> 3</p>
+                                            <button type="button" className="btn btn-primary btn-block add-to-cart" data-key="add_to_cart">Add to Cart</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-lg-4">
+                                    <div className="card mb-3">
+                                        <img src="images/course3.png" className="card-img-top" alt="Course 3 Image" />
+                                        <div className="card-body">
+                                            <h5 className="card-title" data-key="course1_title">Digital Marketing Fundamentals</h5>
+                                            <p className="card-text" data-key="course1_desc">Learn the essentials of digital marketing strategies and techniques.</p>
+                                            <p className="card-text"><strong data-key="instructor">Instructor:</strong> Sarah Williams</p>
+                                            <p className="card-text"><strong data-key="credits">Credits:</strong> 3</p>
+                                            <button type="button" className="btn btn-primary btn-block add-to-cart" data-key="add_to_cart">Add to Cart</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="container p-3">
+                            <div className="progress mb-3">
+                                <div className="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style={{width: '25%'}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25% Complete</div>
+                            </div>
+                        </div>
+                        <div className="container p-3">
+                            <div className="alert alert-success" role="alert" data-key="alert_course_added">
+                                Course successfully added to cart!
+                            </div>
+                        </div>
+                        <div className="container p-3">
+                            <h2 data-key="registration_status_heading">Registration Status</h2>
+                            <p data-key="available_courses">Available Courses:</p>
+                            <table className="table">
+                                <thead>
+                                    <tr>
+                                        <th data-key="table_header_course">Course</th>
+                                        <th data-key="table_header_seats">Available Seats</th>
+                                        <th data-key="table_header_waitlist">Waitlist Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td data-key="course_name_intro_programming">Introduction to Programming</td>
+                                        <td>5</td>
+                                        <td data-key="status_open">Open</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-key="course_name_web_dev_bootcamp">Web Development Bootcamp</td>
+                                        <td>3</td>
+                                        <td data-key="status_open">Open</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-key="course_name_digital_marketing">Digital Marketing Fundamentals</td>
+                                        <td>10</td>
+                                        <td data-key="status_open">Open</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className="container p-3">
+                            <p data-key="undo_redo_course_selection">Undo/Redo Course Selection :</p>
+                            <button type="button" className="btn btn-primary mr-2" data-key="button_undo">Undo</button>
+                            <button type="button" className="btn btn-primary" data-key="button_redo">Redo</button>
+                        </div>
+                        <div className="container p-3">
+                            <p data-key="your_cart">Your Cart :</p>
+                            <a href="cart.html" className="btn btn-primary" data-key="button_my_cart">My Cart</a>
+                        </div>
+                        <div className="container p-3">
+                        <h2 data-key="help_and_documentation_heading">Help and Documentation</h2>
+                        <p data-key="get_assistance">Get assistance on demand:</p>
+                        <div className="accordion" id="helpAccordion">
+                            <div className="card">
+                                <div className="card-header" id="faqHeading">
+                                    <h3 className="mb-0">
+                                        <button className="btn btn-link" type="button" data-toggle="collapse" data-target="#faqCollapse" aria-expanded="true" aria-controls="faqCollapse" data-key="button_faq">
+                                            Frequently Asked Questions
+                                        </button>
+                                    </h3>
+                                </div>
+                                <div id="faqCollapse" className="collapse" aria-labelledby="faqHeading" data-parent="#helpAccordion">
+                                    <div className="card-body">
+                                        {/* Questions here with data-key for each question and answer */}
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="card">
+                                <div className="card-header" id="chatHeading">
+                                    <h3 className="mb-0">
+                                        <button className="btn btn-link" type="button" data-toggle="collapse" data-target="#chatCollapse" aria-expanded="true" aria-controls="chatCollapse" data-key="button_contact_us">
+                                            Contact Us :
+                                        </button>
+                                    </h3>
+                                </div>
+                                <div id="chatCollapse" className="collapse" aria-labelledby="chatHeading" data-parent="#helpAccordion">
+                                    <div className="card-body">
+                                        {/* Contact info here with data-key for each piece of information */}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <footer className="container-md p-3 mt-5 border bg-dark text-white text-center">
+                            <p data-key="footer_copyright">uOttawa 2024</p>
+                        </footer> 
+                    </div>
+                );
+            }
+        }
+
+        ReactDOM.render(<App />, document.getElementById('app'));
+    </script>
+</body>
+</html>
